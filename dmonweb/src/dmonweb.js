@@ -36,9 +36,7 @@ http.createServer(function(request,response){
     }
   
     for(var i=0;i<jsondata.length;i++) {
-        // TODO: change the logic to read the disk data
-        dskUsage += parseInt(jsondata[i].networks.eth0.tx_bytes);
-        
+        dskUsage += parseInt(jsondata[i].blkio_stats.io_service_bytes_recursive[4].value);
     }
  
     var tablecontent={"tag":"tr","children":[{"tag":"th style='visibility:hidden;'","html":""},{"tag":"th style='text-align: center;'","html":"CPU</br>"+cpuUsage},{"tag":"th style='text-align: center;'","html":"Memory</br>"+memUsage},
