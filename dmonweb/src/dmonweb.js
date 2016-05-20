@@ -36,13 +36,22 @@ http.createServer(function(request,response){
     }
   
     for(var i=0;i<jsondata.length;i++) {
-        dskUsage += parseInt(jsondata[i].blkio_stats.io_service_bytes_recursive[4].value);
+        dskUsage += parseInt(jsondata[i].blkio_stats.io_service_bytes_recursive[4] == undefined ? 0 :
+                             jsondata[i].blkio_stats.io_service_bytes_recursive[4].value); 
     }
  
-    var tablecontent={"tag":"tr","children":[{"tag":"th style='visibility:hidden;'","html":""},{"tag":"th style='text-align: center;'","html":"CPU</br>"+cpuUsage},{"tag":"th style='text-align: center;'","html":"Memory</br>"+memUsage},
-                {"tag":"th style='text-align: center;'","html":"Network</br>"+netUsage},{"tag":"th style='text-align: center;'","html":"Disk</br>"+dskUsage}]};
-    var tabledata ={"tag":"tr","children":[{"tag":"td style='padding-left:25px; padding-right:25px;'","html":"${Name}"},{"tag":"td style='text-align: right;padding-left:25px; padding-right:25px;'","html":"${precpu_stats.cpu_usage.total_usage}"},{"tag":"td style='text-align: right;padding-left:25px; padding-right:25px;'","html":"${memory_stats.usage}"},
-                {"tag":"td style='text-align: right; padding-left:25px; padding-right:25px;'","html":"${networks.eth0.rx_bytes}"},{"tag":"td style='text-align: right; padding-left:25px; padding-right:25px;'","html":"${networks.eth0.tx_bytes}"}]};
+    var tablecontent={"tag":"tr","children":[{"tag":"th style='visibility:hidden;'","html":""},
+                {"tag":"th style='text-align: center;'","html":"CPU </br>"       + cpuUsage},
+                {"tag":"th style='text-align: center;'","html":"Memory </br>"    + memUsage},
+                {"tag":"th style='text-align: center;'","html":"NET I/O </br>"   + netUsage},
+                {"tag":"th style='text-align: center;'","html":"BLOCK I/O </br>" + dskUsage}]};
+
+    var tabledata ={"tag":"tr","children":[
+                {"tag":"td style='padding-left:25px; padding-right:25px;'","html":"${Name}"},
+                {"tag":"td style='text-align: right;padding-left:25px; padding-right:25px;'","html":"${precpu_stats.cpu_usage.total_usage}"},
+                {"tag":"td style='text-align: right;padding-left:25px; padding-right:25px;'","html":"${memory_stats.usage}"},
+                {"tag":"td style='text-align: right; padding-left:25px; padding-right:25px;'","html":"${networks.eth0.rx_bytes}"},
+                {"tag":"td style='text-align: right; padding-left:25px; padding-right:25px;'","html":"${networks.eth0.tx_bytes}"}]};
     
  
     response.write(json2html.transform({},metatag));
