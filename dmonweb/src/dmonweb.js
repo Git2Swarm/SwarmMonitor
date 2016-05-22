@@ -1,6 +1,6 @@
 var json2html = require('node-json2html');
 var fs = require("fs");
-var http = http = require('http'),url = require('url');
+var http = require('http');
 
 var filename = "/data/cont-stats.json";
 
