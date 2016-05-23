@@ -55,7 +55,7 @@ http.createServer(function(request,response){
                         <style>tr:nth-child(odd) {background: #ffffff;} tr:nth-child(even) { background: #c0c0c0;}</style> \
                       </head> \
                       <body>");
-    response.write("<table style='float:center; padding:25px 25px 25px 25px;'>"); 
+    response.write("<table align='center' style='float:center; padding:25px 25px 25px 25px;'>"); 
     response.write("<thead><bold>");
     response.write(tableHeader);
     response.write("</bold></thead>");
